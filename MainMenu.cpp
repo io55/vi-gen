@@ -16,6 +16,7 @@ void MainMenu::initialise(Application& app)
 SceneStates MainMenu::run(Application& app)
 {
 	MainApplication& mainApp = dynamic_cast<MainApplication&>(app);
+	sf::RenderWindow& window = mainApp.getWindow();
 
 	// Play animation
 	const f32 dt = mainApp.getDeltaTime();
@@ -32,11 +33,14 @@ SceneStates MainMenu::run(Application& app)
 			curRect.setFillColor(sf::Color(util::RGBAToInt(red, green, blue)));
 
 			curRect.rotate(dt * 15);
-			mainApp.getWindow().draw(curRect);
+			window.draw(curRect);
 		}
 	}
 
 	// TODO: Render text and get input on buttons
+	sf::RectangleShape rect(sf::Vector2f(10, 10));
+	rect.setPosition(mMousePos.x, mMousePos.y);
+	window.draw(rect);
 
 	return SceneStates::MainMenu;
 }
@@ -47,4 +51,7 @@ void MainMenu::cleanup(Application& app)
 	mAnimTimer = 0;
 }
 
-void MainMenu::handleEvents(Application& app, sf::Event& event) { }
+void MainMenu::handleEvents(Application& app, sf::Event& event) {
+	sf::Vector2i mousePos = sf::Mouse::getPosition(dynamic_cast<MainApplication&>(app).getWindow());
+	mMousePos             = sf::Vector2f(mousePos.x, mousePos.y);
+}

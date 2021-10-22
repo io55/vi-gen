@@ -15,11 +15,11 @@ public:
 	void handleEvents(Application&, sf::Event&) override;
 
 private:
+	sf::Vector2f mMousePos;
+
 	const u32 mSizeX = 25;
 	const u32 mSizeY = 25;
-
-	f32 mAnimTimer = 0;
-
+	f32 mAnimTimer   = 0;
 	std::vector<sf::RectangleShape> mAnimationSquares;
 };
 

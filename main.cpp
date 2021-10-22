@@ -5,7 +5,6 @@
 int main(int argc, char** argv)
 {
 	sf::RenderWindow window(sf::VideoMode(575, 575), "io55-generator");
-	window.setFramerateLimit(200);
 
 	// Generate application
 	MainApplication app(window);
