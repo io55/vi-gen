@@ -1,6 +1,7 @@
 #include <MainApplication.hpp>
 #include <MainMenu.hpp>
 #include <SFML/Graphics.hpp>
+#include <TestScene.hpp>
 
 int main(int argc, char** argv)
 {
@@ -10,12 +11,15 @@ int main(int argc, char** argv)
 	MainApplication* app      = MainApplication::gMainApp;
 
 	// Configure scene information
-	MainMenu scene0;
-
 	auto& sceneInfo  = app->getSceneInfo();
 	sceneInfo.mIndex = 0;
 	sceneInfo.mState = SceneStates::MainMenu;
+
+	MainMenu scene0;
 	sceneInfo.mList.push_back(&scene0);
+
+	TestScene scene1;
+	sceneInfo.mList.push_back(&scene1);
 
 	// Trigger startup!
 	app->switchScene(SceneStates::Startup);
