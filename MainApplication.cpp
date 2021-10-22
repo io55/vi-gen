@@ -2,11 +2,11 @@
 #include <util.hpp>
 
 sf::Time MainApplication::gDeltaTimer;
+MainApplication* MainApplication::gMainApp;
 
 MainApplication::MainApplication(sf::RenderWindow& window)
     : mWindow(window)
 {
-	mSceneInfo.mList.resize(0);
 }
 
 void MainApplication::run()
@@ -21,7 +21,7 @@ void MainApplication::run()
 		}
 
 		mWindow.clear();
-		switchScene(getCurrentScene()->run(*this));
+		switchScene(getCurrentScene()->run());
 		mWindow.display();
 	}
 }
@@ -35,7 +35,7 @@ void MainApplication::switchScene(SceneStates nextState)
 	}
 
 	if (!isBootup) {
-		prevScene->cleanup(*this);
+		prevScene->cleanup();
 
 		for (std::size_t i = 0; i < mSceneInfo.mList.size(); i++) {
 			if (mSceneInfo.mList[i]->getState() == nextState) {
@@ -46,7 +46,7 @@ void MainApplication::switchScene(SceneStates nextState)
 	}
 
 	Scene* currScene = getCurrentScene();
-	currScene->initialise(*this);
+	currScene->initialise();
 }
 
 void MainApplication::handleEvents(sf::Event& event)
@@ -56,5 +56,5 @@ void MainApplication::handleEvents(sf::Event& event)
 		return;
 	}
 
-	getCurrentScene()->handleEvents(*this, event);
+	getCurrentScene()->handleEvents(event);
 }

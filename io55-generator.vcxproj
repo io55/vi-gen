@@ -166,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="MainApplication.hpp" />
     <ClInclude Include="MainMenu.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="types.hpp" />
     <ClInclude Include="util.hpp" />

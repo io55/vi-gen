@@ -2,8 +2,34 @@
 #include <MainMenu.hpp>
 #include <util.hpp>
 
-void MainMenu::initialise(Application& app)
+// TODO: Replace with non-OS dependant code
+#ifdef _WIN32
+#include <Windows.h>
+
+static void Button1Press() { MessageBox(NULL, L"Button 1 Pressed", L"io55-generator", MB_OK); }
+static void Button2Press() { MessageBox(NULL, L"Button 2 Pressed", L"io55-generator", MB_OK); }
+
+static void Button3Press()
 {
+	MessageBox(NULL, L"Exiting program!", L"io55-generator", MB_OK);
+	std::exit(EXIT_SUCCESS);
+}
+
+#else
+static void Button1Press() { }
+static void Button2Press() { }
+static void Button3Press() { std::exit(EXIT_SUCCESS); }
+#endif
+
+static MenuItem gMenuItems[] = {
+	MenuItem(new sf::RectangleShape(sf::Vector2f(200, 30)), sf::Color(util::RGBAToInt(0xFF, 0x00, 0x00)), Button1Press),
+	MenuItem(new sf::RectangleShape(sf::Vector2f(200, 30)), sf::Color(util::RGBAToInt(0x00, 0xFF, 0x00)), Button2Press),
+	MenuItem(new sf::RectangleShape(sf::Vector2f(200, 30)), sf::Color(util::RGBAToInt(0x00, 0x00, 0xFF)), Button3Press)
+};
+
+void MainMenu::initialise()
+{
+	// Populate animation squares
 	mAnimationSquares.resize(mSizeX * mSizeY);
 	for (u32 x = 0; x < mSizeX; x++) {
 		for (u32 y = 0; y < mSizeY; y++) {
@@ -11,11 +37,24 @@ void MainMenu::initialise(Application& app)
 			    = sf::RectangleShape(sf::Vector2f(static_cast<f32>(mSizeX), static_cast<f32>(mSizeY)));
 		}
 	}
+
+	// Populate menu
+	mMenu.mItems.clear();
+	for (u32 i = 0; i < static_cast<u32>(sizeof(gMenuItems) / sizeof(MenuItem)); i++) {
+		sf::RectangleShape* curShape = static_cast<sf::RectangleShape*>(gMenuItems[i].getShape());
+		sf::Vector2u windowSize      = MainApplication::gMainApp->getWindow().getSize();
+
+		sf::Vector2f position = { (windowSize.x / 2) - curShape->getSize().x / 2,
+			                      (windowSize.y / 2 - curShape->getSize().y / 2) + i * 50 };
+
+		curShape->setPosition(position);
+		mMenu.mItems.push_back(&gMenuItems[i]);
+	}
 }
 
-SceneStates MainMenu::run(Application& app)
+SceneStates MainMenu::run()
 {
-	MainApplication& mainApp = dynamic_cast<MainApplication&>(app);
+	MainApplication& mainApp = *MainApplication::gMainApp;
 	sf::RenderWindow& window = mainApp.getWindow();
 
 	// Play animation
@@ -26,7 +65,7 @@ SceneStates MainMenu::run(Application& app)
 			sf::RectangleShape& curRect = mAnimationSquares[x + y * mSizeX];
 			curRect.setPosition(static_cast<f32>(mSizeX) * x, static_cast<f32>(mSizeY) * y);
 
-			const u8 red   = util::WrapValue(static_cast<u8>(x + y + mAnimTimer * 10), 0xFF, 0x00);
+			const u8 red = util::WrapValue(static_cast<u8>(x + y + (mMousePos.y / 5) + (mMousePos.x / 5)), 0xFF, 0x00);
 			const u8 green = util::WrapValue(static_cast<u8>(y + mAnimTimer * 3), 0xAA, 0x20);
 			const u8 blue  = util::WrapValue(static_cast<u8>(y + x + mAnimTimer * 50), 0x80, 0x50);
 
@@ -37,21 +76,20 @@ SceneStates MainMenu::run(Application& app)
 		}
 	}
 
-	// TODO: Render text and get input on buttons
-	sf::RectangleShape rect(sf::Vector2f(10, 10));
-	rect.setPosition(mMousePos.x, mMousePos.y);
-	window.draw(rect);
+	mMenu.draw(window);
 
 	return SceneStates::MainMenu;
 }
 
-void MainMenu::cleanup(Application& app)
+void MainMenu::cleanup()
 {
 	mAnimationSquares.clear();
 	mAnimTimer = 0;
 }
 
-void MainMenu::handleEvents(Application& app, sf::Event& event) {
-	sf::Vector2i mousePos = sf::Mouse::getPosition(dynamic_cast<MainApplication&>(app).getWindow());
-	mMousePos             = sf::Vector2f(mousePos.x, mousePos.y);
+void MainMenu::handleEvents(sf::Event& event)
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(MainApplication::gMainApp->getWindow());
+	mMousePos             = sf::Vector2f(static_cast<f32>(mousePos.x), static_cast<f32>(mousePos.y));
+	mMenu.tickMouse(mMousePos);
 }

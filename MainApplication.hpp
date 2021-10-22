@@ -26,6 +26,8 @@ public:
 	static sf::Time gDeltaTimer;
 	static const f32 getDeltaTime() { return gDeltaTimer.asSeconds(); }
 
+	static MainApplication* gMainApp;
+
 private:
 	void handleEvents(sf::Event& ev);
 

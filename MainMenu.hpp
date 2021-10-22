@@ -2,6 +2,7 @@
 #define _MainMenu_HPP
 
 #include <Scene.hpp>
+#include <Menu.hpp>
 
 class MainMenu : public Scene {
 public:
@@ -9,13 +10,15 @@ public:
 	virtual ~MainMenu() = default;
 
 	SceneStates getState() const { return SceneStates::MainMenu; }
-	void initialise(Application&) override;
-	SceneStates run(Application&) override;
-	void cleanup(Application&) override;
-	void handleEvents(Application&, sf::Event&) override;
+	void initialise() override;
+	SceneStates run() override;
+	void cleanup() override;
+	void handleEvents(sf::Event&) override;
 
 private:
 	sf::Vector2f mMousePos;
+
+	Menu mMenu;
 
 	const u32 mSizeX = 25;
 	const u32 mSizeY = 25;
