@@ -2,24 +2,9 @@
 #include <MainMenu.hpp>
 #include <util.hpp>
 
-// TODO: Replace with non-OS dependant code
-#ifdef _WIN32
-#include <Windows.h>
-
-static void Button1Press() { MessageBox(NULL, L"Button 1 Pressed", L"io55-generator", MB_OK); }
-static void Button2Press() { MessageBox(NULL, L"Button 2 Pressed", L"io55-generator", MB_OK); }
-
-static void Button3Press()
-{
-	MessageBox(NULL, L"Exiting program!", L"io55-generator", MB_OK);
-	std::exit(EXIT_SUCCESS);
-}
-
-#else
-static void Button1Press() { }
+static void Button1Press() { MainApplication::gMainApp->switchScene(SceneStates::TestScene); }
 static void Button2Press() { }
 static void Button3Press() { std::exit(EXIT_SUCCESS); }
-#endif
 
 static MenuItem gMenuItems[] = {
 	MenuItem(new sf::RectangleShape(sf::Vector2f(200, 30)), sf::Color(util::RGBAToInt(0xFF, 0x00, 0x00)), Button1Press),
