@@ -161,9 +161,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainApplication.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainApplication.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
+    <ClInclude Include="Scene.hpp" />
     <ClInclude Include="types.hpp" />
     <ClInclude Include="util.hpp" />
     <ClInclude Include="Application.hpp" />

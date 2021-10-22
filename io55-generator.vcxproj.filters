@@ -24,6 +24,9 @@
     <ClCompile Include="MainApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SFML\Audio\AlResource.hpp">
@@ -330,6 +333,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainApplication.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
