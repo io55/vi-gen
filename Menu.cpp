@@ -24,7 +24,8 @@ void Menu::draw(sf::RenderWindow& window)
 
 void Menu::tickMouse(sf::Vector2f mousePos)
 {
-	for (auto& item : mItems) {
+	for (MenuItem*& item : mItems) {
+		// Check if the mouse overlaps the shapes box
 		if (item->getShape()->getGlobalBounds().contains(mousePos)) {
 			item->startHighlight();
 

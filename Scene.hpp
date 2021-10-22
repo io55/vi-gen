@@ -6,7 +6,14 @@
 #include <limits>
 #include <types.hpp>
 
-enum class SceneStates : u8 { Startup = std::numeric_limits<std::uint8_t>::max(), MainMenu = 0 };
+// clang-format off
+enum class SceneStates : u8 { 
+	Startup = std::numeric_limits<std::uint8_t>::max(), 
+
+	MainMenu = 0, 
+	TestScene
+};
+// clang-format on
 
 struct Scene {
 	Scene()          = default;
