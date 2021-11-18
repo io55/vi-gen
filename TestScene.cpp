@@ -11,7 +11,8 @@ void TestScene::initialise()
 
 	std::random_device rd;  // Will be used to obtain a seed for the random number engine
 	std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-	std::uniform_int_distribution<> distrib(window.getSize().x / 5, window.getSize().x / 1.2f);
+	std::uniform_int_distribution<> distrib(static_cast<u32>(window.getSize().x / 5),
+	                                        static_cast<u32>(window.getSize().x / 1.2f));
 
 	for (u32 i = 0; i < 2; i++) {
 		const u32 randomSizeX = distrib(gen);
@@ -48,10 +49,27 @@ void TestScene::cleanup() { mBackgroundShapes.clear(); }
 
 void TestScene::handleEvents(sf::Event& ev)
 {
-	if (ev.type == sf::Event::KeyPressed) {
-		if (ev.key.code == sf::Keyboard::Key::F) {
-			cleanup();
-			initialise();
+
+	if (ev.type == sf::Event::KeyPressed || ev.type == sf::Event::KeyReleased) {
+		if (ev.key.code == sf::Keyboard::Key::R) {
+			static int count    = 0;
+			static bool toRegen = true;
+
+			if (!toRegen) {
+				toRegen = true;
+				count   = 0;
+			}
+
+			if (ev.type == sf::Event::KeyPressed && toRegen) {
+				count++;
+				if (count == 1) {
+					cleanup();
+					initialise();
+					toRegen = false;
+				}
+			}
+		} else if (ev.key.code == sf::Keyboard::Key::Escape) {
+			MainApplication::gMainApp->switchScene(SceneStates::MainMenu);
 		}
 	}
 }
