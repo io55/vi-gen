@@ -28,13 +28,12 @@ void MainApplication::run()
 
 void MainApplication::switchScene(SceneStates nextState)
 {
-	Scene* prevScene    = getCurrentScene();
-	const bool isBootup = nextState == SceneStates::Startup;
-	if (prevScene->getState() == nextState && !isBootup) {
-		return;
-	}
+	if (nextState != SceneStates::Startup) {
+		Scene* prevScene = getCurrentScene();
+		if (prevScene->getState() == nextState) {
+			return;
+		}
 
-	if (!isBootup) {
 		prevScene->cleanup();
 
 		for (std::size_t i = 0; i < mSceneInfo.mList.size(); i++) {
