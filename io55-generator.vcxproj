@@ -163,12 +163,14 @@
     <ClCompile Include="MainApplication.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainApplication.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="TestScene.hpp" />
     <ClInclude Include="types.hpp" />

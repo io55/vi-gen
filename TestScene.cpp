@@ -13,6 +13,8 @@ void TestScene::initialise()
 	const f32 halfWindowX = static_cast<f32>(windowSize.x / 2);
 	const f32 halfWindowY = static_cast<f32>(windowSize.y / 2);
 
+	mPlayer.setup(halfWindowX, halfWindowY);
+
 	std::random_device rd;  // Will be used to obtain a seed for the random number engine
 	std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
 	std::uniform_int_distribution<> sizeDistGen(static_cast<u32>(windowSize.x / 5),
@@ -38,22 +40,10 @@ void TestScene::initialise()
 
 	// Configure Player sprites
 	{
-		sf::RectangleShape& lookShape = mPlayer.mLookRectShape;
-		const sf::Vector2f lookShapeSize(50.0f, 10.0f);
-		lookShape.setSize(lookShapeSize);
-		lookShape.setOrigin(0.0f, lookShapeSize.y / 2);
-		lookShape.setPosition(halfWindowX, halfWindowY);
-		lookShape.setFillColor(sf::Color::Yellow);
-
-		sf::CircleShape& playerShape = mPlayer.mPlayerShape;
-		playerShape.setRadius(10.0f);
-		playerShape.setOrigin(10.0f, 10.0f);
-		playerShape.setPosition(halfWindowX, halfWindowY);
-		playerShape.setFillColor(sf::Color::Red);
 	}
 }
 
-SceneStates TestScene::run()
+void TestScene::run()
 {
 	MainApplication* app     = MainApplication::gMainApp;
 	sf::RenderWindow& window = app->getWindow();
@@ -64,24 +54,7 @@ SceneStates TestScene::run()
 	}
 
 	// Player handling
-	{
-		sf::RectangleShape& lookShape = mPlayer.mLookRectShape;
-		const sf::Vector2f& lookPos   = lookShape.getPosition();
-
-		const sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-		const sf::Vector2f mouseCoord    = window.mapPixelToCoords(mousePosition);
-
-		// Calculate the angle to the mouses cursor using our position,
-		// then convert it to radians so that it can be applied to SFML
-		const f32 angle = std::atan2f(mouseCoord.y - lookPos.y, mouseCoord.x - lookPos.x);
-		lookShape.setRotation(angle * math::gRad2Deg);
-		window.draw(lookShape);
-
-		sf::CircleShape& playerShape = mPlayer.mPlayerShape;
-		window.draw(playerShape);
-	}
-
-	return SceneStates::TestScene;
+	mPlayer.render(window);
 }
 
 void TestScene::cleanup() { mBackgroundShapes.clear(); }

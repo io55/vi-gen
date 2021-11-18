@@ -21,7 +21,7 @@ void MainApplication::run()
 		}
 
 		mWindow.clear();
-		switchScene(getCurrentScene()->run());
+		getCurrentScene()->run();
 		mWindow.display();
 	}
 }
@@ -40,6 +40,7 @@ void MainApplication::switchScene(SceneStates nextState)
 			if (mSceneInfo.mList[i]->getState() == nextState) {
 				mSceneInfo.mIndex = i;
 				mSceneInfo.mState = nextState;
+				break;
 			}
 		}
 	}

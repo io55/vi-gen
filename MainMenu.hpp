@@ -11,13 +11,11 @@ public:
 
 	SceneStates getState() const { return SceneStates::MainMenu; }
 	void initialise() override;
-	SceneStates run() override;
+	void run() override;
 	void cleanup() override;
 	void handleEvents(sf::Event&) override;
 
 private:
-	sf::Vector2f mMousePos;
-
 	Menu mMenu;
 
 	const u32 mSizeX = 25;

@@ -24,10 +24,11 @@ void MainMenu::initialise()
 	}
 
 	// Populate menu
+	const sf::Vector2u windowSize = MainApplication::gMainApp->getWindow().getSize();
+
 	mMenu.mItems.clear();
 	for (u32 i = 0; i < static_cast<u32>(sizeof(gMenuItems) / sizeof(MenuItem)); i++) {
 		sf::RectangleShape* curShape = static_cast<sf::RectangleShape*>(gMenuItems[i].getShape());
-		sf::Vector2u windowSize      = MainApplication::gMainApp->getWindow().getSize();
 
 		sf::Vector2f position = { (windowSize.x / 2) - curShape->getSize().x / 2,
 			                      (windowSize.y / 2 - curShape->getSize().y / 2) + i * 50 };
@@ -37,10 +38,17 @@ void MainMenu::initialise()
 	}
 }
 
-SceneStates MainMenu::run()
+void MainMenu::run()
 {
 	MainApplication& mainApp = *MainApplication::gMainApp;
 	sf::RenderWindow& window = mainApp.getWindow();
+
+	const sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	const sf::Vector2f mouseCoord    = window.mapPixelToCoords(mousePosition);
+
+	if (mMenu.tickMouse(mouseCoord)) {
+		return;
+	}
 
 	// Play animation
 	const f32 dt = mainApp.getDeltaTime();
@@ -50,7 +58,8 @@ SceneStates MainMenu::run()
 			sf::RectangleShape& curRect = mAnimationSquares[x + y * mSizeX];
 			curRect.setPosition(static_cast<f32>(mSizeX) * x, static_cast<f32>(mSizeY) * y);
 
-			const u8 red = util::WrapValue(static_cast<u8>(x + y + (mMousePos.y / 5) + (mMousePos.x / 5)), 0xFF, 0x00);
+			const u8 red
+			    = util::WrapValue(static_cast<u8>(x + y + (mouseCoord.y / 5) + (mouseCoord.x / 5)), 0xFF, 0x00);
 			const u8 green = util::WrapValue(static_cast<u8>(y + mAnimTimer * 3), 0xAA, 0x20);
 			const u8 blue  = util::WrapValue(static_cast<u8>(y + x + mAnimTimer * 50), 0x80, 0x50);
 
@@ -62,8 +71,6 @@ SceneStates MainMenu::run()
 	}
 
 	mMenu.draw(window);
-
-	return SceneStates::MainMenu;
 }
 
 void MainMenu::cleanup()
@@ -72,9 +79,4 @@ void MainMenu::cleanup()
 	mAnimTimer = 0;
 }
 
-void MainMenu::handleEvents(sf::Event& event)
-{
-	sf::Vector2i mousePos = sf::Mouse::getPosition(MainApplication::gMainApp->getWindow());
-	mMousePos             = sf::Vector2f(static_cast<f32>(mousePos.x), static_cast<f32>(mousePos.y));
-	mMenu.tickMouse(mMousePos);
-}
+void MainMenu::handleEvents(sf::Event& event) { }

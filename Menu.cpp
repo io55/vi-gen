@@ -22,7 +22,7 @@ void Menu::draw(sf::RenderWindow& window)
 	}
 }
 
-void Menu::tickMouse(sf::Vector2f mousePos)
+bool Menu::tickMouse(sf::Vector2f mousePos)
 {
 	for (MenuItem*& item : mItems) {
 		// Check if the mouse overlaps the shapes box
@@ -31,10 +31,12 @@ void Menu::tickMouse(sf::Vector2f mousePos)
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 				item->click();
-				break;
+				return true;
 			}
 		} else {
 			item->endHighlight();
 		}
 	}
+
+	return false;
 }

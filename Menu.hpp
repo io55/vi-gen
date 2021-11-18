@@ -5,6 +5,7 @@
 #include <functional>
 #include <types.hpp>
 #include <vector>
+#include <optional>
 
 class MenuItem {
 public:
@@ -30,7 +31,7 @@ struct Menu {
 	~Menu() = default;
 
 	void draw(sf::RenderWindow& window);
-	void tickMouse(sf::Vector2f mousePos);
+	bool tickMouse(sf::Vector2f mousePos);
 
 	std::vector<MenuItem*> mItems;
 };

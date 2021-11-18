@@ -21,7 +21,7 @@ struct Scene {
 
 	virtual SceneStates getState() const = 0;
 	virtual void initialise()            = 0;
-	virtual SceneStates run()            = 0; // Return value is the next scene, ignore if the same scene
+	virtual void run()                   = 0; // Return value is the next scene, ignore if the same scene
 	virtual void cleanup()               = 0;
 
 	virtual void handleEvents(sf::Event&) = 0;
