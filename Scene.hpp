@@ -6,14 +6,12 @@
 #include <limits>
 #include <types.hpp>
 
-// clang-format off
-enum class SceneStates : u8 { 
-	Startup = std::numeric_limits<std::uint8_t>::max(), 
+enum class SceneStates : u8 {
+	Startup = std::numeric_limits<u8>::max(),
 
-	MainMenu = 0, 
+	MainMenu = 0,
 	TestScene
 };
-// clang-format on
 
 struct Scene {
 	Scene()          = default;
@@ -21,7 +19,7 @@ struct Scene {
 
 	virtual SceneStates getState() const = 0;
 	virtual void initialise()            = 0;
-	virtual void run()                   = 0; // Return value is the next scene, ignore if the same scene
+	virtual void run()                   = 0;
 	virtual void cleanup()               = 0;
 
 	virtual void handleEvents(sf::Event&) = 0;
