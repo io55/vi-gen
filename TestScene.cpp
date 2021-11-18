@@ -37,10 +37,6 @@ void TestScene::initialise()
 		mBackgroundShapes.push_back(shape1);
 		mBackgroundShapes.push_back(shape2);
 	}
-
-	// Configure Player sprites
-	{
-	}
 }
 
 void TestScene::run()
