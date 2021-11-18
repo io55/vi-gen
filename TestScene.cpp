@@ -90,22 +90,8 @@ void TestScene::handleEvents(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed || ev.type == sf::Event::KeyReleased) {
 		if (ev.key.code == sf::Keyboard::Key::R) {
-			static int count    = 0;
-			static bool toRegen = true;
-
-			if (!toRegen) {
-				toRegen = true;
-				count   = 0;
-			}
-
-			if (ev.type == sf::Event::KeyPressed && toRegen) {
-				count++;
-				if (count == 1) {
-					cleanup();
-					initialise();
-					toRegen = false;
-				}
-			}
+			cleanup();
+			initialise();
 		} else if (ev.key.code == sf::Keyboard::Key::Escape) {
 			MainApplication::gMainApp->switchScene(SceneStates::MainMenu);
 		}
