@@ -11,19 +11,20 @@ int main(int argc, char** argv)
 	MainApplication* app      = MainApplication::gMainApp;
 
 	// Configure scene information
-	auto& sceneInfo  = app->getSceneInfo();
-	sceneInfo.mIndex = 0;
-	sceneInfo.mState = SceneStates::MainMenu;
+	auto& sceneInfo = app->getSceneInfo();
 
 	MainMenu scene0;
-	sceneInfo.mList.push_back(&scene0);
+	sceneInfo.addScene(&scene0);
 
 	TestScene scene1;
-	sceneInfo.mList.push_back(&scene1);
+	sceneInfo.addScene(&scene1);
 
-	// Trigger startup!
-	app->switchScene(SceneStates::Startup);
+	// Trigger startup
+	app->switchScene(SceneStates::MainMenu);
 	app->run();
+
+	// Cleanup resources
+	delete MainApplication::gMainApp;
 
 	return EXIT_SUCCESS;
 }

@@ -37,6 +37,8 @@ private:
 		std::vector<Scene*> mList;
 		std::size_t mIndex = 0;
 		SceneStates mState = SceneStates::MainMenu;
+
+		void addScene(Scene* toAdd) { mList.push_back(toAdd); }
 	} mSceneInfo;
 };
 

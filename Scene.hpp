@@ -7,10 +7,11 @@
 #include <types.hpp>
 
 enum class SceneStates : u8 {
-	Startup = std::numeric_limits<u8>::max(),
+	Startup    = std::numeric_limits<u8>::max(),
+	ErrorScene = Startup - 1,
 
 	MainMenu = 0,
-	TestScene
+	TestScene,
 };
 
 struct Scene {

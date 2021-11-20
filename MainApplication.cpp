@@ -1,4 +1,5 @@
 #include <MainApplication.hpp>
+#include <cassert>
 #include <util.hpp>
 
 sf::Time MainApplication::gDeltaTimer;
@@ -29,24 +30,25 @@ void MainApplication::run()
 void MainApplication::switchScene(SceneStates nextState)
 {
 	if (nextState != SceneStates::Startup) {
+		// Cleanup the previous scene and find the new scene
 		Scene* prevScene = getCurrentScene();
-		if (prevScene->getState() == nextState) {
-			return;
-		}
-
 		prevScene->cleanup();
 
+		bool found = false;
 		for (std::size_t i = 0; i < mSceneInfo.mList.size(); i++) {
 			if (mSceneInfo.mList[i]->getState() == nextState) {
 				mSceneInfo.mIndex = i;
 				mSceneInfo.mState = nextState;
+				found             = true;
 				break;
 			}
 		}
+
+		assert(found && "Couldn't find wanted scene");
 	}
 
-	Scene* currScene = getCurrentScene();
-	currScene->initialise();
+	// Initialise current scene
+	getCurrentScene()->initialise();
 }
 
 void MainApplication::handleEvents(sf::Event& event)
