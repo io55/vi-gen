@@ -1,3 +1,6 @@
+#ifndef _TYPES_HPP
+#define _TYPES_HPP
+
 #pragma once
 #include <stdbool.h>
 #include <stdint.h>
@@ -26,12 +29,11 @@ constexpr f64 gDeg2Rad = gTau / 360;
 
 #ifdef __cplusplus
 static_assert(sizeof(s8) == 1 && sizeof(u8) == 1, "8 bit number isn't 1 byte");
-static_assert(sizeof(s16) == 2 && sizeof(u16) == 2,
-              "16 bit number isn't 2 bytes");
-static_assert(sizeof(s32) == 4 && sizeof(u32) == 4,
-              "32 bit number isn't 4 bytes");
-static_assert(sizeof(s64) == 8 && sizeof(u64) == 8,
-              "64 bit number isn't 8 bytes");
+static_assert(sizeof(s16) == 2 && sizeof(u16) == 2, "16 bit number isn't 2 bytes");
+static_assert(sizeof(s32) == 4 && sizeof(u32) == 4, "32 bit number isn't 4 bytes");
+static_assert(sizeof(s64) == 8 && sizeof(u64) == 8, "64 bit number isn't 8 bytes");
 static_assert(sizeof(f32) == 4, "32 bit floating point number isn't 4 bytes");
 static_assert(sizeof(f64) == 8, "64 bit floating point number isn't 8 bytes");
+#endif
+
 #endif

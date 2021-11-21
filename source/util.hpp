@@ -1,5 +1,5 @@
-#ifndef _Util_HPP
-#define _Util_HPP
+#ifndef _UTIL_HPP
+#define _UTIL_HPP
 
 #include <SFML/Graphics.hpp>
 #include <type_traits>

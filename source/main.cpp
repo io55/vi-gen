@@ -1,7 +1,8 @@
 #include <MainApplication.hpp>
-#include <MainMenu.hpp>
-#include <SFML/Graphics.hpp>
-#include <TestScene.hpp>
+
+#include <Scenes/MainMenu.hpp>
+#include <Scenes/TestScene1.hpp>
+#include <Scenes/TestScene2.hpp>
 
 int main(int argc, char** argv)
 {
@@ -16,11 +17,14 @@ int main(int argc, char** argv)
 	MainMenu scene0;
 	sceneInfo.addScene(&scene0);
 
-	TestScene scene1;
+	TestScene1 scene1;
 	sceneInfo.addScene(&scene1);
 
+	TestScene2 scene2;
+	sceneInfo.addScene(&scene2);
+
 	// Trigger startup
-	app->switchScene(SceneStates::MainMenu);
+	app->switchScene(SceneState::MainMenu);
 	app->run();
 
 	// Cleanup resources

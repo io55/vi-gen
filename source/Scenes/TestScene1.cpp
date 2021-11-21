@@ -1,10 +1,10 @@
 #include <MainApplication.hpp>
-#include <TestScene.hpp>
+#include <Scenes/TestScene1.hpp>
 #include <chrono>
 #include <random>
 #include <util.hpp>
 
-void TestScene::initialise()
+void TestScene1::initialise()
 {
 	MainApplication* app          = MainApplication::gMainApp;
 	sf::RenderWindow& window      = app->getWindow();
@@ -39,7 +39,7 @@ void TestScene::initialise()
 	}
 }
 
-void TestScene::run()
+void TestScene1::run()
 {
 	MainApplication* app     = MainApplication::gMainApp;
 	sf::RenderWindow& window = app->getWindow();
@@ -53,16 +53,16 @@ void TestScene::run()
 	mPlayer.render(window);
 }
 
-void TestScene::cleanup() { mBackgroundShapes.clear(); }
+void TestScene1::cleanup() { mBackgroundShapes.clear(); }
 
-void TestScene::handleEvents(sf::Event& ev)
+void TestScene1::handleEvents(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed || ev.type == sf::Event::KeyReleased) {
 		if (ev.key.code == sf::Keyboard::Key::R) {
 			cleanup();
 			initialise();
 		} else if (ev.key.code == sf::Keyboard::Key::Escape) {
-			MainApplication::gMainApp->switchScene(SceneStates::MainMenu);
+			MainApplication::gMainApp->switchScene(SceneState::MainMenu);
 		}
 	}
 }

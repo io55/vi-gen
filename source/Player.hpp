@@ -1,5 +1,5 @@
-#ifndef _Player_HPP
-#define _Player_HPP
+#ifndef _PLAYER_HPP
+#define _PLAYER_HPP
 
 #include <SFML/Graphics.hpp>
 #include <types.hpp>

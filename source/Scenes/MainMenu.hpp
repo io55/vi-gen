@@ -1,15 +1,15 @@
-#ifndef _MainMenu_HPP
-#define _MainMenu_HPP
+#ifndef _SCENES_MAINMENU_HPP
+#define _SCENES_MAINMENU_HPP
 
-#include <Scene.hpp>
 #include <Menu.hpp>
+#include <Scenes/Scene.hpp>
 
 class MainMenu : public Scene {
 public:
 	MainMenu()          = default;
 	virtual ~MainMenu() = default;
 
-	SceneStates getState() const { return SceneStates::MainMenu; }
+	constexpr SceneState getState() const override { return SceneState::MainMenu; }
 	void initialise() override;
 	void run() override;
 	void cleanup() override;

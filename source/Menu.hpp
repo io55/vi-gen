@@ -1,11 +1,11 @@
-#ifndef _Menu_HPP
-#define _Menu_HPP
+#ifndef _MENU_HPP
+#define _MENU_HPP
 
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include <optional>
 #include <types.hpp>
 #include <vector>
-#include <optional>
 
 class MenuItem {
 public:

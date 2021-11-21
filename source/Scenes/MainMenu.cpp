@@ -1,9 +1,9 @@
 #include <MainApplication.hpp>
-#include <MainMenu.hpp>
+#include <Scenes/MainMenu.hpp>
 #include <util.hpp>
 
-static void Button1Press() { MainApplication::gMainApp->switchScene(SceneStates::TestScene); }
-static void Button2Press() { }
+static void Button1Press() { MainApplication::gMainApp->switchScene(SceneState::TestScene1); }
+static void Button2Press() { MainApplication::gMainApp->switchScene(SceneState::TestScene2); }
 static void Button3Press() { std::exit(EXIT_SUCCESS); }
 
 static MenuItem gMenuItems[] = {
@@ -30,8 +30,8 @@ void MainMenu::initialise()
 	for (u32 i = 0; i < static_cast<u32>(sizeof(gMenuItems) / sizeof(MenuItem)); i++) {
 		sf::RectangleShape* curShape = static_cast<sf::RectangleShape*>(gMenuItems[i].getShape());
 
-		sf::Vector2f position = { (windowSize.x / 2) - curShape->getSize().x / 2,
-			                      (windowSize.y / 2 - curShape->getSize().y / 2) + i * 50 };
+		sf::Vector2f position = sf::Vector2f((windowSize.x / 2) - curShape->getSize().x / 2,
+		                                     (windowSize.y / 2 - curShape->getSize().y / 2) + i * 50);
 
 		curShape->setPosition(position);
 		mMenu.mItems.push_back(&gMenuItems[i]);
@@ -40,8 +40,7 @@ void MainMenu::initialise()
 
 void MainMenu::run()
 {
-	MainApplication& mainApp = *MainApplication::gMainApp;
-	sf::RenderWindow& window = mainApp.getWindow();
+	sf::RenderWindow& window = MainApplication::gMainApp->getWindow();
 
 	const sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	const sf::Vector2f mouseCoord    = window.mapPixelToCoords(mousePosition);
@@ -51,7 +50,7 @@ void MainMenu::run()
 	}
 
 	// Play animation
-	const f32 dt = mainApp.getDeltaTime();
+	const f32 dt = MainApplication::gMainApp->getDeltaTime();
 	mAnimTimer += dt;
 	for (u32 x = 0; x < mSizeX; x++) {
 		for (u32 y = 0; y < mSizeY; y++) {

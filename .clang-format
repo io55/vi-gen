@@ -14,3 +14,4 @@ AlignOperands: true
 AllowShortIfStatementsOnASingleLine: Never
 Cpp11BracedListStyle: false
 Language: Cpp
+SortIncludes: true

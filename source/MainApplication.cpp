@@ -27,25 +27,23 @@ void MainApplication::run()
 	}
 }
 
-void MainApplication::switchScene(SceneStates nextState)
+void MainApplication::switchScene(SceneState nextState)
 {
-	if (nextState != SceneStates::Startup) {
-		// Cleanup the previous scene and find the new scene
-		Scene* prevScene = getCurrentScene();
-		prevScene->cleanup();
+	// Cleanup the previous scene and find the new scene
+	Scene* prevScene = getCurrentScene();
+	prevScene->cleanup();
 
-		bool found = false;
-		for (std::size_t i = 0; i < mSceneInfo.mList.size(); i++) {
-			if (mSceneInfo.mList[i]->getState() == nextState) {
-				mSceneInfo.mIndex = i;
-				mSceneInfo.mState = nextState;
-				found             = true;
-				break;
-			}
+	bool found = false;
+	for (std::size_t i = 0; i < mSceneInfo.mList.size(); i++) {
+		if (mSceneInfo.mList[i]->getState() == nextState) {
+			mSceneInfo.mIndex = i;
+			mSceneInfo.mState = nextState;
+			found             = true;
+			break;
 		}
-
-		assert(found && "Couldn't find wanted scene");
 	}
+
+	assert(found && "Couldn't find wanted scene");
 
 	// Initialise current scene
 	getCurrentScene()->initialise();
