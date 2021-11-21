@@ -6,7 +6,7 @@
 
 class TestScene2 : public Scene {
 public:
-	TestScene2()         = default;
+	TestScene2()          = default;
 	virtual ~TestScene2() = default;
 
 	constexpr SceneState getState() const override { return SceneState::TestScene2; }
@@ -16,8 +16,12 @@ public:
 	void handleEvents(sf::Event&) override;
 
 private:
+	sf::Vector2u mSize;
+
+	sf::Vector2i mInfluence;
+	std::pair<bool, bool> mInfluenceDir;
+
 	std::vector<sf::RectangleShape> mBackgroundShapes;
-	Player mPlayer;
 };
 
 #endif

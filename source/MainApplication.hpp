@@ -42,4 +42,10 @@ private:
 	} mSceneInfo;
 };
 
+static std::pair<MainApplication*, sf::RenderWindow&> GetAppAndWindow()
+{
+	MainApplication* app = MainApplication::gMainApp;
+	return { app, app->getWindow() };
+}
+
 #endif
