@@ -41,8 +41,9 @@ void TestScene1::initialise()
 
 void TestScene1::run()
 {
-	MainApplication* app     = MainApplication::gMainApp;
-	sf::RenderWindow& window = app->getWindow();
+	auto appWindowPair       = GetAppAndWindow();
+	MainApplication* app     = appWindowPair.first;
+	sf::RenderWindow& window = appWindowPair.second;
 
 	// Generate cool random bg
 	for (const sf::RectangleShape& rectShape : mBackgroundShapes) {

@@ -28,7 +28,7 @@ void MainMenu::initialise()
 
 	mMenu.mItems.clear();
 	for (u32 i = 0; i < static_cast<u32>(sizeof(gMenuItems) / sizeof(MenuItem)); i++) {
-		sf::RectangleShape* curShape = static_cast<sf::RectangleShape*>(gMenuItems[i].getShape());
+		sf::RectangleShape* curShape = dynamic_cast<sf::RectangleShape*>(gMenuItems[i].getShape());
 
 		sf::Vector2f position = sf::Vector2f((windowSize.x / 2) - curShape->getSize().x / 2,
 		                                     (windowSize.y / 2 - curShape->getSize().y / 2) + i * 50);
@@ -49,7 +49,9 @@ void MainMenu::initialise()
 
 void MainMenu::run()
 {
-	sf::RenderWindow& window = MainApplication::gMainApp->getWindow();
+	auto appWindowPair       = GetAppAndWindow();
+	MainApplication* app     = appWindowPair.first;
+	sf::RenderWindow& window = appWindowPair.second;
 
 	const sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	const sf::Vector2f mouseCoord    = window.mapPixelToCoords(mousePosition);
@@ -59,7 +61,7 @@ void MainMenu::run()
 	}
 
 	// Play animation
-	const f32 dt = MainApplication::gMainApp->getDeltaTime();
+	const f32 dt = app->getDeltaTime();
 	mAnimTimer += dt;
 	for (u32 x = 0; x < mSizeX; x++) {
 		for (u32 y = 0; y < mSizeY; y++) {

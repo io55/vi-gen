@@ -25,13 +25,13 @@ void Player::setPosition(sf::Vector2f nextPosition)
 
 void Player::render(sf::RenderWindow& window)
 {
+	// Calculate the angle to the mouses cursor using our position, then
+	// convert it to radians so that it can be applied using SFML
 	const sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	const sf::Vector2f mouseCoord    = window.mapPixelToCoords(mousePosition);
 
-	// Calculate the angle to the mouses cursor using our position,
-	// then convert it to radians so that it can be applied to SFML
-	const sf::Vector2f& lookPos = mLookRectShape.getPosition();
-	const f32 angle             = std::atan2f(mouseCoord.y - lookPos.y, mouseCoord.x - lookPos.x);
+	const sf::Vector2f& lookRectPos = mLookRectShape.getPosition();
+	const f32 angle                 = std::atan2f(mouseCoord.y - lookRectPos.y, mouseCoord.x - lookRectPos.x);
 	mLookRectShape.setRotation(static_cast<f32>(angle * math::gRad2Deg));
 	window.draw(mLookRectShape);
 
