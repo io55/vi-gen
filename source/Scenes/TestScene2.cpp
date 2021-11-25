@@ -9,14 +9,17 @@ void TestScene2::initialise()
 	MainApplication* app     = appWindowPair.first;
 	sf::RenderWindow& window = appWindowPair.second;
 
+	mInfluence = 0;
+
 	const sf::Vector2u windowSize = window.getSize();
 
-	mSize.x = static_cast<u32>(std::floor(windowSize.x / 4.0f));
-	mSize.y = static_cast<u32>(std::floor(windowSize.y / 4.0f));
+	constexpr f32 scaleWeight = 4.0f;
+	mSize.x                   = static_cast<u32>(std::floor(windowSize.x / scaleWeight));
+	mSize.y                   = static_cast<u32>(std::floor(windowSize.y / scaleWeight));
 	mBackgroundShapes.resize(mSize.x * mSize.y);
 	for (u32 x = 0; x < mSize.x; x++) {
 		for (u32 y = 0; y < mSize.y; y++) {
-			mBackgroundShapes[y * mSize.x + x] = sf::RectangleShape(sf::Vector2f(4.0f, 4.0f));
+			mBackgroundShapes[y * mSize.x + x] = sf::RectangleShape(sf::Vector2f(scaleWeight, scaleWeight));
 		}
 	}
 }
@@ -26,41 +29,23 @@ void TestScene2::run()
 	MainApplication* app     = MainApplication::gMainApp;
 	sf::RenderWindow& window = app->getWindow();
 
-	if (mInfluence.x <= 0 && mInfluenceDir.first) {
-		mInfluenceDir.first = false;
-	} else if (mInfluence.x >= 0xFF && !mInfluenceDir.first) {
-		mInfluenceDir.first = true;
-	}
-
-	if (mInfluence.y <= 0 && mInfluenceDir.second) {
-		mInfluenceDir.second = false;
-	} else if (mInfluence.y >= 0xFF && !mInfluenceDir.second) {
-		mInfluenceDir.second = true;
-	}
-
-	if (mInfluenceDir.first) {
-		mInfluence.x--;
-	} else {
-		mInfluence.x++;
-	}
-
-	if (mInfluenceDir.second) {
-		mInfluence.y--;
-	} else {
-		mInfluence.y++;
+	if (mInfluence >= 250) {
+		mInfluence -= 250;
 	}
 
 	for (u32 x = 0; x < mSize.x; x++) {
 		for (u32 y = 0; y < mSize.y; y++) {
 			sf::RectangleShape& curShape = mBackgroundShapes[y * mSize.x + x];
 			curShape.setPosition(x * 4.0f, y * 4.0f);
-			const u32 product = (x + y) + (window.getSize().y ^ x) + (window.getSize().x % (y + x + 1));
-			const u8 red      = static_cast<u8>(mInfluence.x + product);
-			const u8 blue     = static_cast<u8>(x + y + product);
-			curShape.setFillColor(sf::Color(util::RGBAToInt(red, 0x00, blue)));
+			const u32 product = x + y + (750 % ((y ^ x) + 1));
+			const u8 red      = static_cast<u8>(mInfluence + product);
+			const u8 blue     = static_cast<u8>(x * y + product);
+			curShape.setFillColor(sf::Color(util::RGBAToInt(red, 0x00, blue, 0x80)));
 			window.draw(curShape);
 		}
 	}
+
+	mInfluence++;
 }
 
 void TestScene2::cleanup() { }

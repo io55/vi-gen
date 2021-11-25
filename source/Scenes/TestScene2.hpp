@@ -17,10 +17,7 @@ public:
 
 private:
 	sf::Vector2u mSize;
-
-	sf::Vector2i mInfluence             = { 0, 0 };
-	std::pair<bool, bool> mInfluenceDir = { true, true };
-
+	u32 mInfluence;
 	std::vector<sf::RectangleShape> mBackgroundShapes;
 };
 
