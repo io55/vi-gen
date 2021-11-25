@@ -34,7 +34,7 @@ void TestScene2::run()
 		for (u32 y = 0; y < mSize.y; y++) {
 			sf::RectangleShape& curShape = mBackgroundShapes[y * mSize.x + x];
 			curShape.setPosition(x * mSizeDenom, y * mSizeDenom);
-			const u32 product = y - (750 % ((y ^ x) + 1)) + x;
+			const u32 product = (750 % ((y ^ x) + 1)) + std::log(y + x) * 10;
 			const u8 red      = static_cast<u8>(mInfluence + product);
 			const u8 blue     = static_cast<u8>(x * y + product);
 			curShape.setFillColor(sf::Color(util::RGBAToInt(red, 0x00, blue, 0x80)));
