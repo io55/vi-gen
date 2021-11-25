@@ -18,9 +18,11 @@ public:
 private:
 	Menu mMenu;
 
+	sf::Text mMainMenuText;
+
 	const u32 mSizeX = 25;
 	const u32 mSizeY = 25;
-	f32 mAnimTimer   = 0;
+	f32 mAnimTimer   = 0.0f;
 	std::vector<sf::RectangleShape> mAnimationSquares;
 };
 

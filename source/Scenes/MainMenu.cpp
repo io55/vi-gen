@@ -36,6 +36,15 @@ void MainMenu::initialise()
 		curShape->setPosition(position);
 		mMenu.mItems.push_back(&gMenuItems[i]);
 	}
+
+	mMainMenuText.setFont(MainApplication::gFont);
+	mMainMenuText.setString("IO55 VISUAL GENERATOR");
+	mMainMenuText.setCharacterSize(36);
+	mMainMenuText.setPosition(
+	    sf::Vector2f((windowSize.x / 2) - (mMainMenuText.getGlobalBounds().width / 2),
+	                 (windowSize.y / 2) - (mMainMenuText.getGlobalBounds().height / 2) - (windowSize.y / 4)));
+	mMainMenuText.setFillColor(sf::Color::White);
+	mMainMenuText.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 
 void MainMenu::run()
@@ -57,11 +66,9 @@ void MainMenu::run()
 			sf::RectangleShape& curRect = mAnimationSquares[x + y * mSizeX];
 			curRect.setPosition(static_cast<f32>(mSizeX) * x, static_cast<f32>(mSizeY) * y);
 
-			const u8 red
-			    = util::WrapValue(static_cast<u8>(x + y + (mouseCoord.y / 5) + (mouseCoord.x / 5)), 0xFF, 0x00);
+			const u8 red   = util::WrapValue(static_cast<u8>((x + 1) ^ (y + 1)), 0xFF, 0x00);
 			const u8 green = util::WrapValue(static_cast<u8>(y + mAnimTimer * 3), 0xAA, 0x20);
 			const u8 blue  = util::WrapValue(static_cast<u8>(y + x + mAnimTimer * 50), 0x80, 0x50);
-
 			curRect.setFillColor(sf::Color(util::RGBAToInt(red, green, blue)));
 
 			curRect.rotate(dt * 15);
@@ -70,12 +77,13 @@ void MainMenu::run()
 	}
 
 	mMenu.draw(window);
+	window.draw(mMainMenuText);
 }
 
 void MainMenu::cleanup()
 {
 	mAnimationSquares.clear();
-	mAnimTimer = 0;
+	mAnimTimer = 0.0f;
 }
 
 void MainMenu::handleEvents(sf::Event& event) { }

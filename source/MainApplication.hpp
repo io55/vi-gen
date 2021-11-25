@@ -27,6 +27,7 @@ public:
 	static const f32 getDeltaTime() { return gDeltaTimer.asSeconds(); }
 
 	static MainApplication* gMainApp;
+	static sf::Font gFont;
 
 private:
 	void handleEvents(sf::Event& ev);

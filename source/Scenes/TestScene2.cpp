@@ -29,15 +29,15 @@ void TestScene2::run()
 	MainApplication* app     = MainApplication::gMainApp;
 	sf::RenderWindow& window = app->getWindow();
 
-	if (mInfluence >= 250) {
-		mInfluence -= 250;
+	if (mInfluence >= 256) {
+		mInfluence -= 256;
 	}
 
 	for (u32 x = 0; x < mSize.x; x++) {
 		for (u32 y = 0; y < mSize.y; y++) {
 			sf::RectangleShape& curShape = mBackgroundShapes[y * mSize.x + x];
 			curShape.setPosition(x * 4.0f, y * 4.0f);
-			const u32 product = x + y + (750 % ((y ^ x) + 1));
+			const u32 product = y - (750 % ((y ^ x) + 1)) + x;
 			const u8 red      = static_cast<u8>(mInfluence + product);
 			const u8 blue     = static_cast<u8>(x * y + product);
 			curShape.setFillColor(sf::Color(util::RGBAToInt(red, 0x00, blue, 0x80)));
@@ -48,7 +48,7 @@ void TestScene2::run()
 	mInfluence++;
 }
 
-void TestScene2::cleanup() { }
+void TestScene2::cleanup() { mInfluence = 0; }
 
 void TestScene2::handleEvents(sf::Event& ev)
 {
