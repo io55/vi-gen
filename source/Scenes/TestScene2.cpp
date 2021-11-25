@@ -9,17 +9,14 @@ void TestScene2::initialise()
 	MainApplication* app     = appWindowPair.first;
 	sf::RenderWindow& window = appWindowPair.second;
 
-	mInfluence = 0;
-
 	const sf::Vector2u windowSize = window.getSize();
 
-	constexpr f32 scaleWeight = 4.0f;
-	mSize.x                   = static_cast<u32>(std::floor(windowSize.x / scaleWeight));
-	mSize.y                   = static_cast<u32>(std::floor(windowSize.y / scaleWeight));
+	mSize.x = static_cast<u32>(std::floor(windowSize.x / mSizeDenom));
+	mSize.y = static_cast<u32>(std::floor(windowSize.y / mSizeDenom));
 	mBackgroundShapes.resize(mSize.x * mSize.y);
 	for (u32 x = 0; x < mSize.x; x++) {
 		for (u32 y = 0; y < mSize.y; y++) {
-			mBackgroundShapes[y * mSize.x + x] = sf::RectangleShape(sf::Vector2f(scaleWeight, scaleWeight));
+			mBackgroundShapes[y * mSize.x + x] = sf::RectangleShape(sf::Vector2f(mSizeDenom, mSizeDenom));
 		}
 	}
 }
@@ -29,14 +26,14 @@ void TestScene2::run()
 	MainApplication* app     = MainApplication::gMainApp;
 	sf::RenderWindow& window = app->getWindow();
 
-	if (mInfluence >= 256) {
-		mInfluence -= 256;
+	if (mInfluence >= 0xFF) {
+		mInfluence -= 0xFF;
 	}
 
 	for (u32 x = 0; x < mSize.x; x++) {
 		for (u32 y = 0; y < mSize.y; y++) {
 			sf::RectangleShape& curShape = mBackgroundShapes[y * mSize.x + x];
-			curShape.setPosition(x * 4.0f, y * 4.0f);
+			curShape.setPosition(x * mSizeDenom, y * mSizeDenom);
 			const u32 product = y - (750 % ((y ^ x) + 1)) + x;
 			const u8 red      = static_cast<u8>(mInfluence + product);
 			const u8 blue     = static_cast<u8>(x * y + product);

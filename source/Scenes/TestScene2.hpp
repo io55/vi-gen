@@ -16,8 +16,10 @@ public:
 	void handleEvents(sf::Event&) override;
 
 private:
+	u32 mInfluence = 0;
+
+	const f32 mSizeDenom = 5.0f;
 	sf::Vector2u mSize;
-	u32 mInfluence;
 	std::vector<sf::RectangleShape> mBackgroundShapes;
 };
 
