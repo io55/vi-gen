@@ -29,10 +29,10 @@ void MainApplication::run()
 
 void MainApplication::switchScene(SceneState nextState)
 {
-	// Cleanup the previous scene and find the new scene
-	Scene* prevScene = getCurrentScene();
-	prevScene->cleanup();
+	// Cleanup the previous scene
+	getCurrentScene()->cleanup();
 
+	// Find the new scene
 	bool found = false;
 	for (std::size_t i = 0; i < mSceneInfo.mList.size(); i++) {
 		if (mSceneInfo.mList[i]->getState() == nextState) {
@@ -45,7 +45,7 @@ void MainApplication::switchScene(SceneState nextState)
 
 	assert(found && "Couldn't find wanted scene");
 
-	// Initialise current scene
+	// Initialise new scene
 	getCurrentScene()->initialise();
 }
 
