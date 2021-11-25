@@ -17,15 +17,15 @@ void MenuItem::click() { mPressCallback(); }
 
 void Menu::draw(sf::RenderWindow& window)
 {
-	for (MenuItem* item : mItems) {
+	for (const MenuItem* item : mItems) {
 		window.draw(*item->getShape());
 	}
 }
 
 bool Menu::tickMouse(sf::Vector2f mousePos)
 {
-	for (MenuItem*& item : mItems) {
-		// Check if the mouse overlaps the shapes box
+	for (MenuItem* item : mItems) {
+		// Check if the mouse overlaps the button's box
 		if (item->getShape()->getGlobalBounds().contains(mousePos)) {
 			item->startHighlight();
 

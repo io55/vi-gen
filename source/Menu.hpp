@@ -12,6 +12,7 @@ public:
 	MenuItem(sf::Shape* shape, sf::Color hlColor, std::function<void()> callback);
 	~MenuItem();
 
+	const sf::Shape* getShape() const { return mShape; }
 	sf::Shape* getShape() { return mShape; }
 
 	void startHighlight();
