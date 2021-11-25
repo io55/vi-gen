@@ -6,7 +6,12 @@
 
 class MainMenu : public Scene {
 public:
-	MainMenu()          = default;
+	MainMenu()
+	{
+		if (!mFont.loadFromFile("TerminusTTF.ttf")) {
+			std::exit(EXIT_FAILURE);
+		}
+	}
 	virtual ~MainMenu() = default;
 
 	constexpr SceneState getState() const override { return SceneState::MainMenu; }
@@ -18,6 +23,7 @@ public:
 private:
 	Menu mMenu;
 
+	sf::Font mFont;
 	sf::Text mMainMenuText;
 
 	const u32 mSizeX = 25;

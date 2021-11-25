@@ -3,15 +3,11 @@
 #include <util.hpp>
 
 sf::Time MainApplication::gDeltaTimer;
-sf::Font MainApplication::gFont;
 MainApplication* MainApplication::gMainApp;
 
 MainApplication::MainApplication(sf::RenderWindow& window)
     : mWindow(window)
 {
-	if (!gFont.loadFromFile("TerminusTTF.ttf")) {
-		std::exit(EXIT_FAILURE);
-	}
 }
 
 void MainApplication::run()

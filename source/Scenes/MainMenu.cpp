@@ -37,7 +37,7 @@ void MainMenu::initialise()
 		mMenu.mItems.push_back(&gMenuItems[i]);
 	}
 
-	mMainMenuText.setFont(MainApplication::gFont);
+	mMainMenuText.setFont(mFont);
 	mMainMenuText.setString("IO55 VISUAL GENERATOR");
 	mMainMenuText.setCharacterSize(36);
 	mMainMenuText.setPosition(
