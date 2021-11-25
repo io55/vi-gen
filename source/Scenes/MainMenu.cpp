@@ -60,7 +60,9 @@ void MainMenu::run()
 		return;
 	}
 
-	// Play animation
+	// Calculate colour values of the rectangles to simulate a
+	// proper animation, this code achieves a swiping effect
+	// from bottom right to top left
 	const f32 dt = app->getDeltaTime();
 	mAnimTimer += dt;
 	for (u32 x = 0; x < mSizeX; x++) {
@@ -73,7 +75,6 @@ void MainMenu::run()
 			const u8 blue  = util::WrapValue(static_cast<u8>(y + x + mAnimTimer * 50), 0x80, 0x50);
 			curRect.setFillColor(sf::Color(util::RGBAToInt(red, green, blue)));
 
-			curRect.rotate(dt * 15);
 			window.draw(curRect);
 		}
 	}
