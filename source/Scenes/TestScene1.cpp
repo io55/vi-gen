@@ -50,6 +50,29 @@ void TestScene1::run()
 		window.draw(rectShape);
 	}
 
+	if (window.hasFocus()) {
+		constexpr f32 speed = 0.1f;
+		const f32 deltaTime = MainApplication::getDeltaTime();
+
+		sf::Vector2f nextPos = mPlayer.getPosition();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+			nextPos.y -= speed;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+			nextPos.x -= speed;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+			nextPos.y += speed;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+			nextPos.x += speed;
+		}
+		mPlayer.setPosition(nextPos);
+	}
+
 	// Player handling
 	mPlayer.render(window);
 }
@@ -59,11 +82,17 @@ void TestScene1::cleanup() { mBackgroundShapes.clear(); }
 void TestScene1::handleEvents(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed || ev.type == sf::Event::KeyReleased) {
-		if (ev.key.code == sf::Keyboard::Key::R) {
+
+		switch (ev.key.code) {
+		case sf::Keyboard::Key::R:
 			cleanup();
 			initialise();
-		} else if (ev.key.code == sf::Keyboard::Key::Escape) {
+			break;
+		case sf::Keyboard::Key::Escape:
 			MainApplication::gMainApp->switchScene(SceneState::MainMenu);
+			break;
+		default:
+			break;
 		}
 	}
 }
