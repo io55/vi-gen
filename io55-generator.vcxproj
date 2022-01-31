@@ -165,7 +165,7 @@
     <ClInclude Include="source\Scenes\MainMenu.hpp" />
     <ClInclude Include="source\Scenes\Scene.hpp" />
     <ClInclude Include="source\Scenes\TestScene1.hpp" />
-    <ClInclude Include="source\Scenes\TestScene2.hpp" />
+    <ClInclude Include="source\Scenes\OptionScene.hpp" />
     <ClInclude Include="source\SFML\Audio.hpp" />
     <ClInclude Include="source\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="source\SFML\Audio\Export.hpp" />
@@ -274,7 +274,7 @@
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Scenes\MainMenu.cpp" />
     <ClCompile Include="source\Scenes\TestScene1.cpp" />
-    <ClCompile Include="source\Scenes\TestScene2.cpp" />
+    <ClCompile Include="source\Scenes\OptionScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source\SFML\Audio\SoundFileFactory.inl" />

@@ -2,7 +2,7 @@
 
 #include <Scenes/MainMenu.hpp>
 #include <Scenes/TestScene1.hpp>
-#include <Scenes/TestScene2.hpp>
+#include <Scenes/OptionScene.hpp>
 
 int main(int argc, char** argv)
 {
@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 	TestScene1 scene1;
 	sceneInfo.addScene(&scene1);
 
-	TestScene2 scene2;
+	OptionScene scene2;
 	sceneInfo.addScene(&scene2);
 
 	// Trigger startup

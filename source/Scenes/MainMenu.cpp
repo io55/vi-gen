@@ -3,7 +3,7 @@
 #include <util.hpp>
 
 static void Button1Press() { MainApplication::gMainApp->switchScene(SceneState::TestScene1); }
-static void Button2Press() { MainApplication::gMainApp->switchScene(SceneState::TestScene2); }
+static void Button2Press() { MainApplication::gMainApp->switchScene(SceneState::OptionScene); }
 static void Button3Press() { std::exit(EXIT_SUCCESS); }
 
 static MenuItem gMenuItems[] = {

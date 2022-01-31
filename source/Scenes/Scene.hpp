@@ -9,7 +9,7 @@
 enum class SceneState : u8 {
 	MainMenu = 0,
 	TestScene1,
-	TestScene2,
+	OptionScene,
 };
 
 struct Scene {

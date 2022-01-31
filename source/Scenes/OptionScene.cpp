@@ -1,9 +1,9 @@
 #include <MainApplication.hpp>
-#include <Scenes/TestScene2.hpp>
+#include <Scenes/OptionScene.hpp>
 #include <numeric>
 #include <util.hpp>
 
-void TestScene2::initialise()
+void OptionScene::initialise()
 {
 	auto appWindowPair       = GetAppAndWindow();
 	MainApplication* app     = appWindowPair.first;
@@ -21,10 +21,11 @@ void TestScene2::initialise()
 	}
 }
 
-void TestScene2::run()
+void OptionScene::run()
 {
-	MainApplication* app     = MainApplication::gMainApp;
-	sf::RenderWindow& window = app->getWindow();
+	auto appWindowPair       = GetAppAndWindow();
+	MainApplication* app     = appWindowPair.first;
+	sf::RenderWindow& window = appWindowPair.second;
 
 	if (mInfluence == 0xFF) {
 		mInfluence -= 0xFF;
@@ -45,9 +46,9 @@ void TestScene2::run()
 	mInfluence++;
 }
 
-void TestScene2::cleanup() { mInfluence = 0; }
+void OptionScene::cleanup() { mInfluence = 0; }
 
-void TestScene2::handleEvents(sf::Event& ev)
+void OptionScene::handleEvents(sf::Event& ev)
 {
 	if (ev.type == sf::Event::KeyPressed || ev.type == sf::Event::KeyReleased) {
 		if (ev.key.code == sf::Keyboard::Key::Escape) {

@@ -59,13 +59,14 @@ void TestScene1::run()
 			nextPos.y -= speed;
 		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+			nextPos.y += speed;
+		}
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 			nextPos.x -= speed;
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-			nextPos.y += speed;
-		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
 			nextPos.x += speed;

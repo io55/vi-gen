@@ -336,7 +336,7 @@
     <ClInclude Include="source\Scenes\MainMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Scenes\TestScene2.hpp">
+    <ClInclude Include="source\Scenes\OptionScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -359,7 +359,7 @@
     <ClCompile Include="source\Scenes\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Scenes\TestScene2.cpp">
+    <ClCompile Include="source\Scenes\OptionScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

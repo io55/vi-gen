@@ -1,15 +1,15 @@
-#ifndef _SCENES_TESTSCENE2_HPP
-#define _SCENES_TESTSCENE2_HPP
+#ifndef _SCENES_OptionScene_HPP
+#define _SCENES_OptionScene_HPP
 
 #include <Player.hpp>
 #include <Scenes/Scene.hpp>
 
-class TestScene2 : public Scene {
+class OptionScene : public Scene {
 public:
-	TestScene2()          = default;
-	virtual ~TestScene2() = default;
+	OptionScene()          = default;
+	virtual ~OptionScene() = default;
 
-	constexpr SceneState getState() const override { return SceneState::TestScene2; }
+	constexpr SceneState getState() const override { return SceneState::OptionScene; }
 	void initialise() override;
 	void run() override;
 	void cleanup() override;
@@ -37,6 +37,7 @@ private:
 		{
 			mPixelTexture.loadFromImage(mPixelBuffer);
 			mRenderedBuffer.setTexture(mPixelTexture);
+
 			window.draw(mRenderedBuffer);
 		}
 	} mBackground;
